@@ -37,7 +37,7 @@ private:
     GPIO gpio;
     PWM pwm;
 
-    std::string gpio_PWM, gpio_DIR, gpio_STEP;
+    char* gpio_PWM, gpio_DIR, gpio_STEP;
     int degrees;   // the number of degrees to turn (positive degrees = clockwise)
     int position;  //the position in degrees from the starting point
     int direction; // 1 for clockwise, 0 for counter clockwise
@@ -50,7 +50,7 @@ protected:
     
 public:
     
-    Motor(std::string gpio_DIR, std::string gpio_STEP, PINS gpio_PWM);
+    Motor(const char* gpio_DIR, const char* gpio_STEP, PINS gpio_PWM);
     
     
     int getStepsPerRevolution() { return stepsPerRevolution; };

@@ -69,15 +69,22 @@ unsigned int GPIO::getPinValue(std::string pin){
         return val;
     }
 
-    int GPIO::gpio_omap_mux_setup(const char *omap_pin0_name, const char *mode){
+    int GPIO::gpio_omap_mux_setup(const char *omap_pin0_name){
         int fd;
-        char buf[MAX_BUF];
-        snprintf(buf, sizeof(buf), SYSFS_OMAP_MUX_DIR "%s" "%s", omap_pin0_name, OMAP_SUFFIX);
-        std::cout << SYSFS_OMAP_MUX_DIR << omap_pin0_name << OMAP_SUFFIX << std::endl;
-        fd = open(buf, O_WRONLY);
-        if (fd < 0) {
+        const char *mode = "gpio";
+        const char* prefix = "/sys/devices/platform/ocp/ocp:";
+        const char* suffix = "_pinmux/state";
+        const char* p = new char [strlen(prefix)+strlen(omap_pin_name)+strlen(suffix)+5];
+        const char* s = new char [strlen(prefix)+strlen(omap_pin_name)+strlen(suffix)+5];
+        strcat(const_cast<char*>(p),prefix);
+        strcat(const_cast<char*>(p),omap_pin_name);
+        strcat(const_cast<char*>(p),suffix);
+        strcpy(const_cast<char*>(s),p);
+        cout << s << endl;
+        fd = open(s, O_WRONLY);
+        if (fd < 0){
             perror("failed to open OMAP_MUX");
-            return fd;
+                    return fd;
         }
         write(fd, mode, strlen(mode) + 1);
         close(fd);
