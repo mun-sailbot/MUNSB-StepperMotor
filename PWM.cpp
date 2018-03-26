@@ -5,12 +5,18 @@ daniel@daniel-cook.net
 
 #include "PWM.h"
 
-    PWM(std::string path){
+    PWM::PWM(){
+        _dutyPercent = 0;
+    }
+
+    PWM::PWM(std::string path){
         _path = path;
         _dutyPercent = 0;
     }
 
-    void run(){
+    
+
+    void PWM::run(){
         std::ofstream fout;
         fout.open(std::string(_path+"/enable").c_str(), std::ios::out);
 
@@ -22,7 +28,7 @@ daniel@daniel-cook.net
             std::cout << "Warning: duty_percent = 0" << std::endl;
     }
 
-    void stop(){
+    void PWM::stop(){
         std::ofstream fout;
         fout.open(std::string(_path+"/enable").c_str(), std::ios::out);
 
@@ -31,7 +37,7 @@ daniel@daniel-cook.net
         fout.close();
     }
 
-    bool request(){
+    bool PWM::request(){
         if(isFree()){
             std::ofstream fout;
             fout.open(std::string(_path+"/request").c_str(), std::ios::out);
@@ -46,7 +52,7 @@ daniel@daniel-cook.net
             return false;
     }
 
-    bool release(){
+    bool PWM::release(){
         if(!isFree()){
             std::ofstream fout;
             fout.open(std::string(_path+"/request").c_str(), std::ios::out);
@@ -61,7 +67,7 @@ daniel@daniel-cook.net
             return false;
     }
 
-    void setDutyPercent(float percent){
+    void PWM::setDutyPercent(float percent){
         std::ofstream fout;
         fout.open(std::string(_path+"/duty_percent").c_str(), std::ios::out);
 
@@ -71,7 +77,7 @@ daniel@daniel-cook.net
         fout.close();
     }
 
-    void setPeriodFreq(float freq){
+    void PWM::setPeriodFreq(float freq){
         setDutyPercent(0);
 
         std::ofstream fout;
@@ -82,12 +88,12 @@ daniel@daniel-cook.net
         fout.close();
     }
 
-    void setPeriodFreqWithDutyPercent(float freq, float percent){
+    void PWM::setPeriodFreqWithDutyPercent(float freq, float percent){
         setPeriodFreq(freq);
         setDutyPercent(percent);
     }
 
-    float getDutyPercent(){
+    float PWM::getDutyPercent(){
         std::ifstream fin(std::string(_path+"/duty_percent").c_str(), std::ios::in);
 
         float ret;
@@ -97,7 +103,7 @@ daniel@daniel-cook.net
         return ret;
     }
 
-    float getPeriodFreq(){
+    float PWM::getPeriodFreq(){
         std::ifstream fin(std::string(_path+"/period_freq").c_str(), std::ios::in);
 
         float ret;
@@ -107,7 +113,7 @@ daniel@daniel-cook.net
         return ret;
     }
 
-    bool isFree(){
+    bool PWM::isFree(){
         std::ifstream fin;
         fin.open(std::string(_path+"/request").c_str(), std::ios::in);
 
@@ -125,4 +131,18 @@ daniel@daniel-cook.net
             return true;
         else
             return false;
+    }
+
+    int PWM::gpio_omap_mux_setup(const char *omap_pin0_name, const char *mode){
+        int fd;
+        char buf[80];
+        snprintf(buf, sizeof(buf), SYSFS_OMAP_MUX_DIR "%s" "%s", omap_pin0_name, OMAP_SUFFIX);
+        fd = open(buf, O_WRONLY);
+        if (fd < 0) {
+            perror("failed to open OMAP_MUX");
+            return fd;
+        }
+        write(fd, mode, strlen(mode) + 1);
+        close(fd);
+        return 0;
     }

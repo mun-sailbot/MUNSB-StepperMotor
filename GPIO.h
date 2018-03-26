@@ -4,14 +4,10 @@
 #define SYSFS_GPIO_DIR "/sys/class/gpio"
 #define POLL_TIMEOUT (3 * 1000) /* 3 seconds */
 #define MAX_BUF 80
-#define SYSFS_OMAP_MUX_DIR "/sys/devices/platform/ocp/ocp\:"
+#define SYSFS_OMAP_MUX_DIR "/sys/devices/platform/ocp/ocp\\:"
 #define OMAP_SUFFIX "_pinmux/state"
 
 #include "Common.h"
-
-
-namespace BeagleUtil
-{
 
 enum PIN_DIRECTION{
 	INPUT_PIN=0,
@@ -28,17 +24,18 @@ enum PIN_VALUE{
         std::string _path;
 
         public:
+        GPIO();
         GPIO(std::string path);
 
-        void exportPin(unsigned int pin);
-        void unexportPin(unsigned int pin);
+        void exportPin(std::string pin);
+        void unexportPin(std::string pin);
 
-        void setPinDirection(unsigned int pin, std::string dir);
-        void setPinValue(unsigned int pin, unsigned int value);
+        void setPinDirection(std::string pin, std::string dir);
+        void setPinValue(std::string pin, unsigned int value);
 
-        unsigned int getPinValue(unsigned int pin);
+        unsigned int getPinValue(std::string pin);
+        int gpio_omap_mux_setup(const char *omap_pin0_name, const char *mode);
     };
 
-}
 
 #endif

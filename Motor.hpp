@@ -1,14 +1,14 @@
 /*
  *    List of Beaglebone pins for the motor drivers:
  *
- *    Rudder: I1      - Pin 29, GPIO_111/Pwm
- *            Step - Pin 18, GPIO_05
+ *    Rudder: I1      - Pin 14, GPIO_40/Pwm
+ *            Step - Pin 19, GPIO_13
  *            Dir  - Pin 17, GPIO_04
  *            Hall Effect - Pin 27, GPIO_125
  *
- *      Mast: I1      - Pin 31, GPIO_110/Pwm
+ *      Mast: I1      - Pin 42, GPIO_20/Pwm
  *            Step - Pin 25, GPIO_117
- *            Dir  - Pin 40, GPIO_20
+ *            Dir  - Pin 41, GPIO_20
  *            Hall Effect - Pin 23, GPIO 49
  */
 
@@ -16,6 +16,7 @@
 #define Motor_hpp
 
 #include "GPIO.h"
+#include "PWM.h"
 #include <string>
 #include <stdio.h>
 
@@ -33,7 +34,10 @@ class Motor
     
 private:
     
-    int gpio_DIR, gpio_PWM, gpio_STEP;
+    GPIO gpio;
+    PWM pwm;
+
+    std::string gpio_PWM, gpio_DIR, gpio_STEP;
     int degrees;   // the number of degrees to turn (positive degrees = clockwise)
     int position;  //the position in degrees from the starting point
     int direction; // 1 for clockwise, 0 for counter clockwise
@@ -46,7 +50,7 @@ protected:
     
 public:
     
-    Motor(int gpio_DIR, int gpio_STEP, int gpio_PWM);   // constructor
+    Motor(std::string gpio_DIR, std::string gpio_STEP, std::string gpio_PWM);
     
     int getStepsPerRevolution() { return stepsPerRevolution; };
     
