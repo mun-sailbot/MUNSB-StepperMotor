@@ -85,7 +85,7 @@
             std::ofstream fout;
             fout.open(std::string(_path+"/export").c_str(), std::ios::out);
 
-            fout << 1;
+            fout << 0;
 
             fout.close();
 
@@ -165,16 +165,16 @@
             return false;
     }
 
-    int PWM::gpio_omap_mux_setup(const char *omap_pin0_name, const char *mode){
+    int PWM::gpio_omap_mux_setup(const char *omap_pin0_name){
         int fd;
         char buf[80];
-        snprintf(buf, sizeof(buf), SYSFS_OMAP_MUX_DIR "%s" "%s", omap_pin0_name, OMAP_SUFFIX);
+        snprintf(buf, sizeof(buf), "%s", omap_pin0_name);
         fd = open(buf, O_WRONLY);
         if (fd < 0) {
             perror("failed to open OMAP_MUX");
             return fd;
         }
-        write(fd, mode, strlen(mode) + 1);
+        write(fd, "0", strlen("0") + 1);
         close(fd);
         return 0;
     }

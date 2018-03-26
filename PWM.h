@@ -36,7 +36,7 @@ daniel@daniel-cook.net
         float getPeriod();
 
         bool isFree();
-        int gpio_omap_mux_setup(const char *omap_pin0_name, const char *mode);
+        int gpio_omap_mux_setup(const char *omap_pin0_name);
     };
 
 #endif

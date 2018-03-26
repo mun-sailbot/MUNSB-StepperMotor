@@ -67,6 +67,7 @@ unsigned int GPIO::getPinValue(std::string pin){
         int fd;
         char buf[MAX_BUF];
         snprintf(buf, sizeof(buf), SYSFS_OMAP_MUX_DIR "%s" "%s", omap_pin0_name, OMAP_SUFFIX);
+        std::cout << SYSFS_OMAP_MUX_DIR << omap_pin0_name << OMAP_SUFFIX << std::endl;
         fd = open(buf, O_WRONLY);
         if (fd < 0) {
             perror("failed to open OMAP_MUX");
