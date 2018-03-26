@@ -15,6 +15,7 @@
 #ifndef Motor_hpp
 #define Motor_hpp
 
+#include "GPIO.h"
 #include <string>
 #include <stdio.h>
 
@@ -49,56 +50,16 @@ public:
     
     int getStepsPerRevolution() { return stepsPerRevolution; };
     
-    /*!
-     *    rotates a specific number of steps
-     *
-     *     sends a single pulse/step to the motor driver
-     *
-     *    @param           numberOfsteps    number of steps to rotate
-     *                                        positive value = clockwise
-     *                                        negative value = counterclockwise
-     *
-     *    @modifies       position           will add degrees turned (1.8 degrees/step)
-     *
-     */
+   
     void step(int numberOfsteps);
     
-    /*
-     *    converts the clockwise flag to false
-     *    reversing the direction of rotation
-     *
-     *    @modifies       clockwise    reverses direction
-     *
-     */
+   
     void reverseDirection() { clockwise = !clockwise; }
     
-    /*!
-     *    rotates a specific number of degrees
-     *
-     *    converts this to number of steps (1.8 degrees/step)
-     *    then sends a single pulse/step to the motor driver.
-     *
-     *    @param          degrees        positive value = clockwise
-     *                                    negative value = counterclockwise
-     *    @modifies       position    adds number of degrees rotated
-     *
-     *
-     */
+   
     void rotate(int degrees);
     
     
-    /*!
-     *    resets stepper motor to home
-     *
-     *    rotates the motor clockwise until it activates
-     *    the hall effect sensor then adjusts to position
-     *    zero from there if needed.
-     *
-     *    @modifies    int position
-     *
-     *    @returns    true if home position is established
-     *
-     */
     bool setStartPosition();
     
     

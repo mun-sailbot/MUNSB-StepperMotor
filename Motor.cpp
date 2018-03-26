@@ -7,17 +7,29 @@
 //
 
 #include "Motor.hpp"
+#include <iostream>
+#include <unistd.h>
+using namespace std;
 
 Motor::Motor(int gpio_DIR, int gpio_STEP, int gpio_PWM) {
 
     clockwise = true;
     stepsPerRevolution = 200;
     stepSize = 1.8;
+
+    this->gpio_PWM  = gpio_PWM;
+	this->gpio_STEP = gpio_STEP;
+	this->gpio_DIR  = gpio_DIR;
+
+    BeagleUtil::GPIO gpio("/sys/class/gpio/");
     
-    this->gpio_DIR = gpio_DIR;
-    this->gpio_STEP = gpio_STEP;
-    this->gpio_PWM = gpio_PWM;
-    
+    exportPin(this->gpio_PWM);
+	setPinDirection(this->gpio_PWM, OUTPUT_PIN);
+	exportPin(this->gpio_STEP);
+	setPinDirection(this->gpio_STEP, OUTPUT_PIN);
+	exportPin(this->gpio_DIR);
+	setPinDirection(this->gpio_DIR, OUTPUT_PIN);
+
 }
 
 void Motor::rotate(int degrees){
