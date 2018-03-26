@@ -1,7 +1,3 @@
-/*
-Daniel Cook 2013
-daniel@daniel-cook.net
-*/
 
 #include "PWM.h"
 
@@ -9,12 +5,59 @@ daniel@daniel-cook.net
         _dutyPercent = 0;
     }
 
-    PWM::PWM(std::string path){
-        _path = path;
+    PWM::PWM(PINS pin){
         _dutyPercent = 0;
+        _pin = pin;
+        switch (pin) {
+            case P9_42:
+                _path = PWM_P9_42;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P9_42_pinmux/state","pwm");
+                break;
+            case P9_22:
+                _path = PWM_P9_22;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P9_22_pinmux/state","pwm");
+                break;
+            case P9_21:
+                _path = PWM_P9_21;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P9_21_pinmux/state","pwm");
+                break;
+            case P9_14:
+                _path = PWM_P9_14;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P9_14_pinmux/state","pwm");
+                break;
+            case P8_36:
+                _path = PWM_P8_36;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_36_pinmux/state","pwm");
+                break;
+            case P9_16:
+                _path = PWM_P9_16;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P9_16_pinmux/state","pwm");
+                break;
+            case P8_34:
+                _path = PWM_P8_34;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_34_pinmux/state","pwm");
+                break;
+            case P8_19:
+                _path = PWM_P8_19;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_19_pinmux/state","pwm");
+                break;
+            case P8_45:
+                _path = PWM_P8_45;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_45_pinmux/state","pwm");
+                break;
+            case P8_13:
+                _path = PWM_P8_13;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_13_pinmux/state","pwm");
+                break;
+            case P8_46:
+                _path = PWM_P8_46;
+                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_46_pinmux/state","pwm");
+                break;
+            default:
+                break;
+        }
+        request();
     }
-
-    
 
     void PWM::run(){
         std::ofstream fout;
@@ -40,7 +83,7 @@ daniel@daniel-cook.net
     bool PWM::request(){
         if(isFree()){
             std::ofstream fout;
-            fout.open(std::string(_path+"/request").c_str(), std::ios::out);
+            fout.open(std::string(_path+"/export").c_str(), std::ios::out);
 
             fout << 1;
 
@@ -55,7 +98,7 @@ daniel@daniel-cook.net
     bool PWM::release(){
         if(!isFree()){
             std::ofstream fout;
-            fout.open(std::string(_path+"/request").c_str(), std::ios::out);
+            fout.open(std::string(_path+"/export").c_str(), std::ios::out);
 
             fout << 0;
 
@@ -67,34 +110,27 @@ daniel@daniel-cook.net
             return false;
     }
 
-    void PWM::setDutyPercent(float percent){
+    void PWM::setDutyCycle(int duty){
         std::ofstream fout;
-        fout.open(std::string(_path+"/duty_percent").c_str(), std::ios::out);
+        fout.open(std::string(_path+"/duty_cycle").c_str(), std::ios::out);
 
-        fout << percent;
-        _dutyPercent = percent;
+        fout << duty;
+        _dutyPercent = duty;
 
         fout.close();
     }
 
-    void PWM::setPeriodFreq(float freq){
-        setDutyPercent(0);
-
+    void PWM::setPeriod(int period){
         std::ofstream fout;
-        fout.open(std::string(_path+"/period_freq").c_str(), std::ios::out);
+        fout.open(std::string(_path+"/period").c_str(), std::ios::out);
 
-        fout << freq;
+        fout << period;
 
         fout.close();
     }
 
-    void PWM::setPeriodFreqWithDutyPercent(float freq, float percent){
-        setPeriodFreq(freq);
-        setDutyPercent(percent);
-    }
-
-    float PWM::getDutyPercent(){
-        std::ifstream fin(std::string(_path+"/duty_percent").c_str(), std::ios::in);
+    float PWM::getDutyCycle(){
+        std::ifstream fin(std::string(_path+"/duty_cycle").c_str(), std::ios::in);
 
         float ret;
         fin >> ret;
@@ -103,8 +139,8 @@ daniel@daniel-cook.net
         return ret;
     }
 
-    float PWM::getPeriodFreq(){
-        std::ifstream fin(std::string(_path+"/period_freq").c_str(), std::ios::in);
+    float PWM::getPeriod(){
+        std::ifstream fin(std::string(_path+"/period").c_str(), std::ios::in);
 
         float ret;
         fin >> ret;
@@ -115,17 +151,13 @@ daniel@daniel-cook.net
 
     bool PWM::isFree(){
         std::ifstream fin;
-        fin.open(std::string(_path+"/request").c_str(), std::ios::in);
+        fin.open(std::string(_path+"/export").c_str(), std::ios::in);
 
-        //std::string ret1, ret2, ret3;
-        //fin >> ret1 >> ret2 >> ret3;
         char line[64];
         fin.getline(line, 64);
         std::string status = std::string(line);
 
         fin.close();
-
-        //std::string status = ret1+ret2+ret3;
 
         if(status.find("free") != std::string::npos)
             return true;

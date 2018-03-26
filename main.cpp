@@ -12,8 +12,8 @@ using namespace std;
 void stepperMotorTest(){
     // GPIO Dir, GPIO Step, GPIO PWM
     
-    Motor motor1("P9_41", "P9_25", "P9_42");    // Mast
-    Motor motor2("P9_17", "P9_19", "P9_14");    // Rudder
+    Motor motor1("P9_41", "P9_25", P9_42);    // Mast
+    Motor motor2("P9_17", "P9_19", P9_14);    // Rudder
     
     cout << "*** Start of Motor Test" << endl;
     cout << "*** Rotating - Forward 360 degrees" << endl;

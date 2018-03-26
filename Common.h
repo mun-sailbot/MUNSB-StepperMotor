@@ -13,8 +13,6 @@
 #include <unistd.h>
 #include <stdint.h>
 
-namespace BeagleUtil
-{
     const std::string GPIO_DEFAULT_PATH = "/sys/class/gpio";
 
     const std::string PWM_P9_42 = "/sys/class/pwm/pwmchip0/pwm0";
@@ -46,6 +44,20 @@ namespace BeagleUtil
         UART5
     } UART_PORT;
 
+    typedef enum{
+        P9_42,
+        P9_22,
+        P9_21,
+        P9_14,
+        P8_36,
+        P9_16,
+        P8_34,
+        P8_19,
+        P8_45,
+        P8_13,
+        P8_46
+    } PINS;
+
     const std::string I2C_1 = "/dev/i2c-1";
     const std::string I2C_3 = "/dev/i2c-3";
 
@@ -59,6 +71,5 @@ namespace BeagleUtil
     const short int UART_USE_PIN = 0x8000;
     const short int UART_SLOW = 0x0040;
     const short int UART_INPUT = 0x0020;
-}
 
 #endif

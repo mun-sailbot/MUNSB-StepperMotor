@@ -50,7 +50,8 @@ protected:
     
 public:
     
-    Motor(std::string gpio_DIR, std::string gpio_STEP, std::string gpio_PWM);
+    Motor(std::string gpio_DIR, std::string gpio_STEP, PINS gpio_PWM);
+    
     
     int getStepsPerRevolution() { return stepsPerRevolution; };
     

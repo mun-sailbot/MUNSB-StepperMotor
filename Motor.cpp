@@ -11,24 +11,23 @@
 #include <unistd.h>
 using namespace std;
 
-Motor::Motor(std::string gpio_DIR, std::string gpio_STEP, std::string gpio_PWM) {
+Motor::Motor(std::string gpio_DIR, std::string gpio_STEP, PINS gpio_PWM) {
 
     clockwise = true;
     stepsPerRevolution = 200;
     stepSize = 1.8;
-
-    this->gpio_PWM  = gpio_PWM.c_str();
+    
+    PWM pwm(gpio_PWM);  // sets up PWM pin
+    
 	this->gpio_STEP = gpio_STEP.c_str();
 	this->gpio_DIR  = gpio_DIR.c_str();
-    
-    gpio.gpio_omap_mux_setup(gpio_PWM.c_str(), "pwm");
     
     gpio.gpio_omap_mux_setup(gpio_STEP.c_str(), "gpio");
     
     gpio.gpio_omap_mux_setup(gpio_DIR.c_str(), "gpio");
     
-    gpio.exportPin(this->gpio_PWM);
-	
+    pwm.setPeriod(100000);
+    pwm.setDutyCycle(19600);
 	gpio.exportPin(this->gpio_STEP);
 	gpio.setPinDirection(this->gpio_STEP, "out");
 	gpio.exportPin(this->gpio_DIR);
