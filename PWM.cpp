@@ -92,7 +92,7 @@
             fout.open(std::string(_path+"/export").c_str(), std::ios::out);
 
             fout << 0;
-
+            
             fout.close();
 
             return true;
@@ -171,9 +171,25 @@
             return false;
     }
 
-    int PWM::gpio_omap_mux_setup(std::string omap_pin0_name){
-        std::ofstream fout;
-        fout.open(std::string(omap_pin0_name + "/export"), std::ios::out);
-        fout << 0;
-        fout.close();
+    int PWM::gpio_omap_mux_setup(const char* omap_pin_name){
+        int fd;
+        const char *mode = "pwm";
+        const char* prefix = "/sys/devices/platform/ocp/ocp:";
+        const char* suffix = "_pinmux/state";
+        const char* p = new char [strlen(prefix)+strlen(omap_pin_name)+strlen(suffix)+5];
+        const char* s = new char [strlen(prefix)+strlen(omap_pin_name)+strlen(suffix)+5];
+        strcat(const_cast<char*>(p),prefix);
+        strcat(const_cast<char*>(p),omap_pin_name);
+        strcat(const_cast<char*>(p),suffix);
+        strcpy(const_cast<char*>(s),p);
+        cout << s << endl;
+        fd = open(s, O_WRONLY);
+        if (fd < 0){
+            perror("failed to open OMAP_MUX");
+                    return fd;
+        }
+        write(fd, mode, strlen(mode) + 1);
+        close(fd);
+        return 0;
     }
+    
