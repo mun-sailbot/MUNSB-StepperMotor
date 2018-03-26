@@ -8,8 +8,8 @@
 #include <iostream>
 #include <fcntl.h>
 #include <termios.h>
-//#include <linux/i2c-dev.h>
-//#include <sys/ioctl.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
 #include <stdint.h>
 
