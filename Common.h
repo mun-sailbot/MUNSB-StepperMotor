@@ -15,27 +15,27 @@
 
     const std::string GPIO_DEFAULT_PATH = "/sys/class/gpio";
 
-    const std::string PWM_P9_42 = "/sys/class/pwm/pwmchip0/pwm0";
+    const std::string PWM_P9_42 = "/sys/class/pwm/pwmchip0/";
 
-    const std::string PWM_P9_22 = "/sys/class/pwm/pwmchip1/pwm0";
-    //const std::string PWM_P9_31 = "/sys/class/pwm/pwmchip1/pwm0";
+    const std::string PWM_P9_22 = "/sys/class/pwm/pwmchip1/";
+    //const std::string PWM_P9_31 = "/sys/class/pwm/pwmchip1/";
 
-    const std::string PWM_P9_21 = "/sys/class/pwm/pwmchip1/pwm1";
-    //const std::string PWM_P9_29 = "/sys/class/pwm/pwmchip1/pwm1";
+    const std::string PWM_P9_21 = "/sys/class/pwm/pwmchip1/";
+    //const std::string PWM_P9_29 = "/sys/class/pwm/pwmchip1/";
 
-    const std::string PWM_P9_14 = "/sys/class/pwm/pwmchip3/pwm0";
-    const std::string PWM_P8_36 = "/sys/class/pwm/pwmchip3/pwm0";
+    const std::string PWM_P9_14 = "/sys/class/pwm/pwmchip3/";
+    const std::string PWM_P8_36 = "/sys/class/pwm/pwmchip3/";
 
-    const std::string PWM_P9_16 = "/sys/class/pwm/pwmchip3/pwm1";
-    const std::string PWM_P8_34 = "/sys/class/pwm/pwmchip3/pwm1";
+    const std::string PWM_P9_16 = "/sys/class/pwm/pwmchip3/";
+    const std::string PWM_P8_34 = "/sys/class/pwm/pwmchip3/";
 
-    //const std::string PWM_P9_28 = "/sys/class/pwm/pwmchip5/pwm0";
+    //const std::string PWM_P9_28 = "/sys/class/pwm/pwmchip5/";
 
-    const std::string PWM_P8_19 = "/sys/class/pwm/pwmchip6/pwm0";
-    const std::string PWM_P8_45 = "/sys/class/pwm/pwmchip6/pwm0";
+    const std::string PWM_P8_19 = "/sys/class/pwm/pwmchip6/";
+    const std::string PWM_P8_45 = "/sys/class/pwm/pwmchip6/";
 
-    const std::string PWM_P8_13 = "/sys/class/pwm/pwmchip6/pwm1";
-    const std::string PWM_P8_46 = "/sys/class/pwm/pwmchip6/pwm1";
+    const std::string PWM_P8_13 = "/sys/class/pwm/pwmchip6/";
+    const std::string PWM_P8_46 = "/sys/class/pwm/pwmchip6/";
 
     typedef enum{
         UART1,
