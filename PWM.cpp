@@ -17,47 +17,47 @@
         switch (pin) {
             case P9_42:
                 _path = PWM_P9_42;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P9_42_pinmux/state");
+                gpio_omap_mux_setup("P9_42");
                 break;
             case P9_22:
                 _path = PWM_P9_22;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P9_22_pinmux/state");
+                gpio_omap_mux_setup("P9_22");
                 break;
             case P9_21:
                 _path = PWM_P9_21;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P9_21_pinmux/state");
+                gpio_omap_mux_setup("P9_21");
                 break;
             case P9_14:
                 _path = PWM_P9_14;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P9_14_pinmux/state");
+                gpio_omap_mux_setup("P9_14");
                 break;
             case P8_36:
                 _path = PWM_P8_36;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_36_pinmux/state");
+                gpio_omap_mux_setup("P8_36");
                 break;
             case P9_16:
                 _path = PWM_P9_16;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P9_16_pinmux/state");
+                gpio_omap_mux_setup("P9_16");
                 break;
             case P8_34:
                 _path = PWM_P8_34;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_34_pinmux/state");
+                gpio_omap_mux_setup("P8_34");
                 break;
             case P8_19:
                 _path = PWM_P8_19;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_19_pinmux/state");
+                gpio_omap_mux_setup("P8_19");
                 break;
             case P8_45:
                 _path = PWM_P8_45;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_45_pinmux/state");
+                gpio_omap_mux_setup("P8_45");
                 break;
             case P8_13:
                 _path = PWM_P8_13;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_13_pinmux/state");
+                gpio_omap_mux_setup("P8_13");
                 break;
             case P8_46:
                 _path = PWM_P8_46;
-                gpio_omap_mux_setup("/sys/devices/platform/ocp/ocp\\:P8_46_pinmux/state");
+                gpio_omap_mux_setup("P8_46");
                 break;
             default:
                 break;
