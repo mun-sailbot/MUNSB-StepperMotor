@@ -17,7 +17,8 @@ daniel@daniel-cook.net
         private:
         std::string _path;
         std::string _pin;
-        unsigned int _dutyPercent;
+        std::string _sub;
+        unsigned int _dutycycle;
 
         public:
         PWM();
@@ -34,9 +35,10 @@ daniel@daniel-cook.net
 
         float getDutyCycle();
         float getPeriod();
-
+        std::string getSub();
+        std::string getPath();
         bool isFree();
-        int gpio_omap_mux_setup(std::string omap_pin0_name);
+        int gpio_omap_mux_setup(const char* omap_pin0_name);
     };
 
 #endif
