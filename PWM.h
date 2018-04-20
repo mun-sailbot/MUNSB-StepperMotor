@@ -38,7 +38,7 @@ daniel@daniel-cook.net
         std::string getSub();
         std::string getPath();
         bool isFree();
-        int gpio_omap_mux_setup(const char* omap_pin0_name);
+        int gpio_omap_mux_setup(const char* omap_pin_name);
     };
 
 #endif

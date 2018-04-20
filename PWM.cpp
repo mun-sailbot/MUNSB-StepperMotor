@@ -17,32 +17,32 @@
         switch (pin) {
             case P9_42:
                 _path = PWM_P9_42;
-                _sub = "pwm0";
+                _sub = "0";
                 gpio_omap_mux_setup("P9_42");
                 break;
             case P9_22:
                 _path = PWM_P9_22;
-                _sub = "pwm0";
+                _sub = "0";
                 gpio_omap_mux_setup("P9_22");
                 break;
             case P9_21:
                 _path = PWM_P9_21;
-                _sub = "pwm1";
+                _sub = "1";
                 gpio_omap_mux_setup("P9_21");
                 break;
             case P9_14:
                 _path = PWM_P9_14;
-                _sub = "pwm0";
+                _sub = "0";
                 gpio_omap_mux_setup("P9_14");
                 break;
             case P8_36:
                 _path = PWM_P8_36;
-                _sub = "pwm0";
+                _sub = "0";
                 gpio_omap_mux_setup("P8_36");
                 break;
             case P9_16:
                 _path = PWM_P9_16;
-                _sub = "pwm1";
+                _sub = "1";
                 gpio_omap_mux_setup("P9_16");
                 break;
             case P8_34:
@@ -52,22 +52,22 @@
                 break;
             case P8_19:
                 _path = PWM_P8_19;
-                _sub = "pwm0";
+                _sub = "0";
                 gpio_omap_mux_setup("P8_19");
                 break;
             case P8_45:
                 _path = PWM_P8_45;
-                _sub = "pwm0";
+                _sub = "0";
                 gpio_omap_mux_setup("P8_45");
                 break;
             case P8_13:
                 _path = PWM_P8_13;
-                _sub = "pwm1";
+                _sub = "1";
                 gpio_omap_mux_setup("P8_13");
                 break;
             case P8_46:
                 _path = PWM_P8_46;
-                _sub = "pwm1";
+                _sub = "1";
                 gpio_omap_mux_setup("P8_46");
                 break;
             default:
@@ -99,14 +99,7 @@
     bool PWM::request(){
             std::ofstream fout;
             fout.open(std::string(this->getPath()+"/export").c_str(), std::ios::out);
-
-            if (this->getSub() == "pwm0"){
-                fout << 0;
-            }
-            else {
-                fout << 1;
-            }
-            
+            fout << _sub;    
             fout.close();
     }
 

@@ -13,6 +13,8 @@
 #include <unistd.h>
 #include <stdint.h>
 
+using namespace std;
+
     const std::string GPIO_DEFAULT_PATH = "/sys/class/gpio";
 
     const std::string PWM_P9_42 = "/sys/class/pwm/pwmchip0/";

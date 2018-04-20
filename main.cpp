@@ -6,8 +6,8 @@
 #include "PWM.h"
 #include "Common.h"
 #include "Motor.hpp"
-using namespace std;
 
+using namespace std;
 
 void stepperMotorTest(){
     // GPIO Dir, GPIO Step, GPIO PWM

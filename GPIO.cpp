@@ -7,6 +7,8 @@
 #include <poll.h>
 #include "GPIO.h"
 
+using namespace std;
+
     GPIO::GPIO() {
         
     }

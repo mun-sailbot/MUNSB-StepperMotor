@@ -1,14 +1,7 @@
-//
-//  Motor.cpp
-//  Motor
-//
-//  Created by Bryan Melanson on 2018-03-11.
-//  Copyright © 2018 Bryan Melanson. All rights reserved.
-//
-
 #include "Motor.hpp"
 #include <iostream>
 #include <unistd.h>
+
 using namespace std;
 
 Motor::Motor(const char* gpio_DIR, const char* gpio_STEP, PINS gpio_PWM) {
