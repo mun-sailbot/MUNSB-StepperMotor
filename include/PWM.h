@@ -32,7 +32,8 @@ daniel@daniel-cook.net
 
         void setDutyCycle(int duty);
         void setPeriod(int period);
-
+        void step(int numberOfSteps);
+        
         float getDutyCycle();
         float getPeriod();
         std::string getSub();

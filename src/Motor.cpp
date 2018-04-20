@@ -1,4 +1,4 @@
-#include "Motor.hpp"
+#include "Motor.h"
 #include <iostream>
 #include <unistd.h>
 
@@ -36,19 +36,19 @@ void Motor::rotate(int degrees){
 
 void Motor::step(int numberOfSteps){
     if(numberOfSteps>=0) {
-        if(clockwise) gpio.setPinValue(this->gpio_DIR, LOW);
-        else gpio.setPinValue(this->gpio_DIR, HIGH);
+        if(clockwise) gpio.setPinValue(this->gpio_DIR, 0);
+        else gpio.setPinValue(this->gpio_DIR, 1);
         for(int i=0; i<numberOfSteps; i++){
-            gpio.setPinValue(this->gpio_STEP, LOW);
-            gpio.setPinValue(this->gpio_STEP, HIGH);
+            gpio.setPinValue(this->gpio_STEP, 0);
+            gpio.setPinValue(this->gpio_STEP, 1);
         }
     }
     else { // going in reverse (numberOfSteps is negative)
-        if(clockwise) gpio.setPinValue(this->gpio_DIR, HIGH);
-        else gpio.setPinValue(this->gpio_DIR, LOW);
+        if(clockwise) gpio.setPinValue(this->gpio_DIR, 1);
+        else gpio.setPinValue(this->gpio_DIR, 0);
         for(int i=numberOfSteps; i<=0; i++){
-            gpio.setPinValue(this->gpio_STEP, LOW);
-            gpio.setPinValue(this->gpio_STEP, HIGH);
+            gpio.setPinValue(this->gpio_STEP, 0);
+            gpio.setPinValue(this->gpio_STEP, 1);
         }
     }
 }
