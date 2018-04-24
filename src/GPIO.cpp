@@ -46,7 +46,7 @@ using namespace std;
         fout.close();
     }
 
-    void GPIO::setPinValue(std::string pin, unsigned int value){
+    void GPIO::setPinValue(std::string pin, std::string value){
         std::ofstream fout;
         std::stringstream ss;
         ss << _path+"/gpio" << pin << "/value";
@@ -57,13 +57,13 @@ using namespace std;
         fout.close();
     }
 
-unsigned int GPIO::getPinValue(std::string pin){
+std::string GPIO::getPinValue(std::string pin){
         std::ifstream fin;
         std::stringstream ss;
         ss << _path+"/gpio" << pin << "/value";
         fin.open(ss.str().c_str(), std::ios::in);
 
-        unsigned int val;
+        std::string val;
         fin >> val;
 
         fin.close();
@@ -71,18 +71,14 @@ unsigned int GPIO::getPinValue(std::string pin){
         return val;
     }
 
-    int GPIO::gpio_omap_mux_setup(const char *omap_pin0_name){
+    int GPIO::gpio_omap_mux_setup(std::string omap_pin_name){
         int fd;
-        const char *mode = "gpio";
-        const char* prefix = "/sys/devices/platform/ocp/ocp:";
-        const char* suffix = "_pinmux/state";
-        const char* p = new char [strlen(prefix)+strlen(omap_pin_name)+strlen(suffix)+5];
-        const char* s = new char [strlen(prefix)+strlen(omap_pin_name)+strlen(suffix)+5];
-        strcat(const_cast<char*>(p),prefix);
-        strcat(const_cast<char*>(p),omap_pin_name);
-        strcat(const_cast<char*>(p),suffix);
-        strcpy(const_cast<char*>(s),p);
-        cout << s << endl;
+        const char* mode = "gpio";
+        std::string prefix = "/sys/devices/platform/ocp/ocp:";
+        std::string suffix = "_pinmux/state";
+        
+	std::string c = prefix + omap_pin_name + suffix;
+        const char* s = c.c_str();
         fd = open(s, O_WRONLY);
         if (fd < 0){
             perror("failed to open OMAP_MUX");
